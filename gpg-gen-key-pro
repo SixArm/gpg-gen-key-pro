@@ -6,10 +6,12 @@ set -euf
 #
 # This command prints our typical steps to set up a GPG key for an email address.
 #
-# We use a special file naming convention that uses the email address,
-# an equal sign as a separator, and then "gpg_key_rsa" for our RSA key.
+# We prefer a file name convention that uses the email address,
+# an equal sign as a separator, and then an explanation:
 #
-#     alice@example.com=gpg_key_with_rsa_and_rsa
+#     alice@example.com=pgp-public-key.txt
+#
+#     alice@example.com=pgp-private-key.txt
 #
 # Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 # License: GPL
@@ -21,7 +23,7 @@ email=${1-"alice@example.com"}
 
 cat <<EOF
 
-To use GPG gen-key with our typical settings:
+Create a GPG key with our typical settings for OpenPGP:
 
     gpg --full-gen-key --openpgp
 
@@ -31,14 +33,26 @@ Choose 4096 bits; this is typically the strongest.
 
 Choose expiration date in one year; this is to be safe.
 
+Choose a long complex password that you do not use elsewhere.
+
 To list:
 
    gpg --list-key $email
 
-To export:
+To export your public key and private key:
 
-   gpg --armor --export $email > $email=gpg_public_key.txt
+   gpg --armor --export $email
 
-   gpg --armor --export-secret-key $email > $email=gpg_private_key.txt
+   gpg --armor --export-secret-key $email
+
+To export your public key and private key, using our file name convention:
+
+   gpg --armor --export $email > $email=pgp-public-key.txt
+
+   gpg --armor --export-secret-key $email > $email=pgp-private-key.txt
+
+You can send your public key to anyone.
+
+You must keep your private key secret.
 
 EOF
