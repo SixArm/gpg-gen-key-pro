@@ -47,9 +47,9 @@ To export your public key and private key:
 
 To export your public key and private key, using our file name convention:
 
-   gpg --armor --export $email > $email=pgp-public-key.txt
+   gpg --armor --export $email > $email=pgp-public-key.asc
 
-   gpg --armor --export-secret-key $email > $email=pgp-private-key.txt
+   gpg --armor --export-secret-key $email > $email=pgp-private-key.asc
 
 You can send your public key to anyone.
 
