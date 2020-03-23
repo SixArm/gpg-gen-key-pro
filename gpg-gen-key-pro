@@ -37,19 +37,29 @@ Choose a long complex password that you do not use elsewhere.
 
 To list:
 
-   gpg --list-key $email
+    gpg --list-key $email
 
-To export your public key and private key:
+To export your public key and private key, using ASCII armor:
 
-   gpg --armor --export $email
+    gpg --export --armor $email
 
-   gpg --armor --export-secret-key $email
+    gpg --export-secret-key --armor $email
 
-To export your public key and private key, using our file name convention:
+To export your public key and private key, using base64 encoding:
 
-   gpg --armor --export $email > $email=pgp-public-key.asc
+    gpg --export $email | base64
 
-   gpg --armor --export-secret-key $email > $email=pgp-private-key.asc
+    gpg --export-secret-key $email | base64
+
+To export using our file name convention:
+
+    gpg --export --armor $email > $email=pgp-public-key.asc
+
+    gpg --export-secret-key --armor  $email > $email=pgp-private-key.asc
+
+    gpg --export $email | base64 > $email=pgp-public-key.base64
+
+    gpg --export-secret-key $email | base64 > $email=pgp-private-key.base64
 
 You can send your public key to anyone.
 
