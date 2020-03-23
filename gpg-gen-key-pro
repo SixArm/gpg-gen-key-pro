@@ -9,9 +9,17 @@ set -euf
 # We prefer a file name convention that uses the email address,
 # an equal sign as a separator, and then an explanation:
 #
-#     alice@example.com=pgp-public-key.txt
+#     alice@example.com=pgp-public-key-block.txt
 #
-#     alice@example.com=pgp-private-key.txt
+#     alice@example.com=pgp-public-key-base64.txt
+#
+#     alice@example.com=pgp-public-key-base64-line.txt
+#
+#     alice@example.com=pgp-private-key-block.txt
+#
+#     alice@example.com=pgp-private-key-base64.txt
+#
+#     alice@example.com=pgp-private-key-base64-line.txt
 #
 # Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 # License: GPL
@@ -22,6 +30,8 @@ set -euf
 email=${1-"alice@example.com"}
 
 cat <<EOF
+
+## How to create a key
 
 Create a GPG key with our typical settings for OpenPGP:
 
@@ -39,27 +49,52 @@ To list:
 
     gpg --list-key $email
 
-To export your public key and private key, using ASCII armor:
+
+## How to export
+
+To export your public key using ASCII armor:
 
     gpg --export --armor $email
 
-    gpg --export-secret-key --armor $email
-
-To export your public key and private key, using base64 encoding:
+To export your public key using base64 encoding:
 
     gpg --export $email | base64
 
+To export your public key using base64 encoding as one line:
+
+    gpg --export $email | base64 | tr -d '[:space:]'
+
+To export your private key using ASCII armor:
+
+    gpg --export-secret-key --armor $email
+
+To export your private key using base64 encoding:
+
     gpg --export-secret-key $email | base64
 
-To export using our file name convention:
+To export your private key using base64 encoding as one line:
 
-    gpg --export --armor $email > $email=pgp-public-key.asc
+    gpg --export-secret-key $email | base64 | tr -d '[:space:]'
 
-    gpg --export-secret-key --armor  $email > $email=pgp-private-key.asc
 
-    gpg --export $email | base64 > $email=pgp-public-key.base64
+## How to export with our file name conventions:
 
-    gpg --export-secret-key $email | base64 > $email=pgp-private-key.base64
+To export your public key and private key using our file name convention:
+
+    gpg --export --armor $email > $email=pgp-public-key-block.txt
+
+    gpg --export $email | base64 > $email=pgp-public-key-base64.txt
+
+    gpg --export $email | base64 | tr -d '[:space:]' > $email=pgp-public-key-base64-line.txt
+
+    gpg --export-secret-key --armor $email > $email=pgp-private-key-block.txt
+
+    gpg --export-secret-key $email | base64 > $email=pgp-private-key-base64.txt
+
+    gpg --export-secret-key $email | base64 | tr -d '[:space:]' > $email=pgp-private-key-base64-line.txt
+
+
+## What's next
 
 You can send your public key to anyone.
 
