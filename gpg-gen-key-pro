@@ -37,8 +37,8 @@ To list:
 
 To export:
 
-   gpg --armor --export $email --output $email=gpg_public_key.txt
+   gpg --armor --export $email > $email=gpg_public_key.txt
 
-   gpg --armor --export-secret-key $email --output $email=gpg_private_key.txt
+   gpg --armor --export-secret-key $email > $email=gpg_private_key.txt
 
 EOF
