@@ -52,14 +52,9 @@ To export your private key using ASCII armor:
 
     gpg --export-secret-key --armor $email
 
+To generate a recovation certification:
 
-## How to export with our file name conventions:
-
-To export your public key and private key using our file name convention:
-
-    gpg --export --armor $email > $email=pgp-public-key-block.txt
-
-    gpg --export-secret-key --armor $email > $email=pgp-private-key-block.txt
+    gpg  --gen-revoke --armor $email
 
 
 ## Export alternatives
@@ -86,18 +81,21 @@ To transform a PGP ASCII armor key file `example.txt` to base64 without spaces:
 
 Our file name convention for ASCII armor block files:
 
-    $email=pgp-public-key-block.txt
-    $email=pgp-private-key-block.txt
+    $email=$id=pgp-public-key-block.txt
+    $email=$id=pgp-private-key-block.txt
+    $email=$id=pgp-revocation-block.txt
 
 Our file name convention for base64 multi-line files:
 
-    $email=pgp-public-key-base64.txt
-    $email=pgp-private-key-base64.txt
+    $email=$id=pgp-public-key-base64.txt
+    $email=$id=pgp-private-key-base64.txt
+    $email=$id=pgp-revocation-base64.txt
 
 Our file name convention for base64 mono-line files:
 
-    $email=pgp-public-key-base64-line.txt
-    $email=pgp-private-key-base64-line.txt
+    $email=$id=pgp-public-key-base64-line.txt
+    $email=$id=pgp-private-key-base64-line.txt
+    $email=$id=pgp-revocation-base64-line.txt
 
 
 ## What's next
